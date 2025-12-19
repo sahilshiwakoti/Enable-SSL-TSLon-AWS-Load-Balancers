@@ -1,0 +1,42 @@
+
+1. Application Load Balancer
+
+[ Internet Users / Browsers ]
+               |
+        HTTPS : 443 (SSL/TLS)
+               |
+        ┌──────────────────┐
+        │  Application     │
+        │  Load Balancer   │
+        │  (ALB)           │
+        │  SSL Termination │◄── ACM Certificate
+        └──────────────────┘
+               |
+        HTTP / HTTPS
+               |
+        ┌──────────────────┐
+        │ Target Group     │
+        │ (EC2 / ECS /     │
+        │  EKS / Lambda)   │
+        └──────────────────┘
+
+
+2. Network Load Balancer
+
+[ Clients / Applications ]
+               |
+        TLS : 443 (Encrypted)
+               |
+        ┌──────────────────┐
+        │  Network Load    │
+        │  Balancer (NLB)  │
+        │  TLS Listener    │◄── ACM Certificate
+        └──────────────────┘
+               |
+        TCP Traffic
+               |
+        ┌──────────────────┐
+        │ Target Group     │
+        │ (EC2 / On-Prem / │
+        │  IP-based apps)  │
+        └──────────────────┘
