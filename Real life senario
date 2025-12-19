@@ -1,0 +1,40 @@
+Real-life architecture scenario
+
+
+This is the combined logical structure of the AWS load balancers: Application Load Balancer and Network Load Balancer
+
+
+              Internet
+                  |
+            HTTPS / TLS
+                  |
+        ┌──────────────────┐
+        │  ALB (HTTPS)     │  ← Web / API Layer
+        │  SSL Termination │
+        └──────────────────┘
+                  |
+              Internal
+                  |
+        ┌──────────────────┐
+        │  NLB (TLS)       │  ← Backend Services
+        │  High Throughput │
+        └──────────────────┘
+                  |
+        ┌──────────────────┐
+        │  EC2 / ECS /     │
+        │  Databases /     │
+        │  Internal APIs   │
+        └──────────────────┘
+
+Here are some reasons why a company could use this architecture
+	•	ALB handles:
+	  •	HTTPS
+	  •	Authentication
+	  •	Routing logic
+
+	•	NLB handles:
+	  •	Massive traffic
+	  •	Stable IPs
+	  •	Internal encrypted communication
+
+ALB terminates SSL at Layer 7 for HTTP/HTTPS traffic, while NLB supports TLS at Layer 4 for high-performance, low-latency workloads.
